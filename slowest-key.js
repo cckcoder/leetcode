@@ -11,25 +11,20 @@ let slowestKey = function (releaseTimes, keysPressed) {
     return;
   }
 
-  let duration = 0;
-  let slowKey = "";
-  let deductVal = "";
-  let maxValue = {}
+  let key = keysPressed[0];
+  let duration = releaseTimes[0];
 
-  for (let i = 0; i < releaseTimes.length; i++) {
-    //console.log(keysPressed[i])
-    if (i === 0) {
-      duration = releaseTimes[i];
-    } else {
-      deductVal = releaseTimes[i] - releaseTimes[i - 1];
-      if (deductVal > duration) {
-        duration = deductVal;
-        maxValue[i] = { 'value': duration }
-      }
+  for (let i = 1; i < releaseTimes.length; i++) {
+    curDuration = releaseTimes[i] - releaseTimes[i - 1];
+    if (
+      curDuration > duration ||
+      (curDuration == duration && keysPressed[i] > key)
+    ) {
+      key = keysPressed[i];
+      duration = curDuration;
     }
   }
-
 };
 
-//slowestKey([9, 29, 49, 50], "cbcd");
-slowestKey([12,23,36,46,62], "spuda");
+slowestKey([9, 29, 49, 50], "cbcd");
+// slowestKey([12,23,36,46,62], "spuda");
